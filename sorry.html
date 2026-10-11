@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'm Really Sorry ❤️</title>
+<style>
+  /* ===== Global Reset ===== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Poppins', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #ffe0ec 0%, #f3e5ff 50%, #fff5e1 100%);
+    color: #5a3e5a;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  /* ===== Floating Hearts & Stars Background ===== */
+  .floating-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .floating-item {
+    position: absolute;
+    bottom: -50px;
+    font-size: 20px;
+    opacity: 0;
+    animation: floatUp linear infinite;
+    user-select: none;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* ===== Main Card ===== */
+  .container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(200, 120, 170, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+    padding: 45px 35px;
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== Heading ===== */
+  .title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #d1477a;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(209, 71, 122, 0.15);
+    animation: pulseTitle 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseTitle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #a06b9b;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+
+  /* ===== Message Section ===== */
+  .message-box {
+    background: rgba(255, 240, 248, 0.85);
+    border-left: 4px solid #f7a1c4;
+    border-radius: 18px;
+    padding: 25px 22px;
+    margin-bottom: 35px;
+    text-align: left;
+    line-height: 1.85;
+    font-size: 1.05rem;
+    color: #6b4a6b;
+    box-shadow: 0 8px 25px rgba(247, 161, 196, 0.15);
+    white-space: pre-line;
+  }
+
+  .message-box p {
+    margin-bottom: 14px;
+  }
+
+  .message-box p:last-child {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #d1477a;
+  }
+
+  /* ===== Question Section ===== */
+  .question {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #b3477e;
+    margin-bottom: 25px;
+  }
+
+  /* ===== Buttons ===== */
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 70px;
+  }
+
+  .btn {
+    padding: 15px 42px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    outline: none;
+    position: relative;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #ff8fb1, #d1477a);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(209, 71, 122, 0.4);
+  }
+
+  .btn-yes:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 14px 35px rgba(209, 71, 122, 0.55);
+  }
+
+  .btn-yes:active {
+    transform: scale(0.97);
+  }
+
+  .btn-no {
+    background: linear-gradient(135deg, #d3b6e0, #a583b8);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(165, 131, 184, 0.35);
+    transition: all 0.15s ease;
+  }
+
+  /* ===== Reward / Success Section ===== */
+  .reward-section {
+    display: none;
+    animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .reward-section.show {
+    display: block;
+  }
+
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .reward-emoji {
+    font-size: 4.5rem;
+    display: block;
+    margin-bottom: 15px;
+    animation: bounce 1s ease infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .reward-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #d1477a;
+    margin-bottom: 15px;
+    line-height: 1.4;
+  }
+
+  .reward-text {
+    font-size: 1.1rem;
+    color: #7a5a7a;
+    line-height: 1.7;
+  }
+
+  /* ===== Confetti Canvas ===== */
+  #confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ===== Responsive Design ===== */
+  @media (max-width: 600px) {
+    .container {
+      padding: 32px 22px;
+      border-radius: 24px;
+    }
+
+    .title {
+      font-size: 1.75rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      margin-bottom: 22px;
+    }
+
+    .message-box {
+      padding: 18px 16px;
+      font-size: 0.96rem;
+      line-height: 1.75;
+    }
+
+    .question {
+      font-size: 1.15rem;
+    }
+
+    .btn {
+      padding: 13px 30px;
+      font-size: 1rem;
+    }
+
+    .btn-group {
+      gap: 14px;
+    }
+
+    .reward-emoji {
+      font-size: 3.5rem;
+    }
+
+    .reward-title {
+      font-size: 1.45rem;
+    }
+
+    .reward-text {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .title {
+      font-size: 1.5rem;
+    }
+    .btn {
+      padding: 12px 22px;
+      font-size: 0.92rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Floating hearts & stars background -->
+  <div class="floating-container" id="floatingContainer"></div>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Main content -->
+  <div class="container" id="mainContainer">
+
+    <h1 class="title">I'm Really Sorry! 🥺</h1>
+    <p class="subtitle">Please read my heart out...</p>
+
+    <div class="message-box" id="messageBox">
+      <p>ami jani ami protibar vul kori ar maf chai. protibar boli ami shudhre jabo, ami change hoye jabo. kintu kichudin gelei abar ja tai hoye jai.</p>
+      <p>ashole ami change hoite chai mon thekei but amar mone ekta jinish ghurpak khacche sheta holo amr life er path ki? ami etodin eta niyei tension e achi ar bujhte parsi na. ami jani ami jodi success na hoi tui o thakbi na amar sathe. tai anake amar life er path khuje ber korte hobe, tarpore hoyto tui amake ekjon stable manush hishebe dekhbi.</p>
+      <p>totodin ki amake maf kore dewa jay? i hope ami toke bujhate peresi.</p>
+    </div>
+
+    <!-- Question + Buttons -->
+    <div id="questionSection">
+      <p class="question">Will you forgive me? 💕</p>
+      <div class="btn-group" id="btnGroup">
+        <button class="btn btn-yes" id="yesBtn">Yes 💖</button>
+        <button class="btn btn-no" id="noBtn">No 😢</button>
+      </div>
+    </div>
+
+    <!-- Reward Section -->
+    <div class="reward-section" id="rewardSection">
+      <span class="reward-emoji">🥰</span>
+      <h2 class="reward-title">Yay! Thank you for forgiving me!</h2>
+      <p class="reward-text">I promise I'll be better! ❤️<br>You mean the world to me.</p>
+    </div>
+
+  </div>
+
+<script>
+  /* ============================================
+     1. FLOATING HEARTS & STARS BACKGROUND
+     ============================================ */
+  (function createFloatingItems() {
+    const container = document.getElementById('floatingContainer');
+    const symbols = ['❤️', '💕', '💖', '✨', '⭐', '🌸', '💗', '🤍', '💫', '🌷'];
+    const count = 25;
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'floating-item';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.fontSize = (Math.random() * 18 + 14) + 'px';
+      el.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      el.style.animationDelay = (Math.random() * 12) + 's';
+      container.appendChild(el);
+    }
+  })();
+
+  /* ============================================
+     2. "NO" BUTTON — RUNS AWAY ON HOVER / TOUCH
+     ============================================ */
+  const noBtn = document.getElementById('noBtn');
+  const btnGroup = document.getElementById('btnGroup');
+  let noBtnMoved = false;
+
+  function moveNoButton() {
+    const groupRect = btnGroup.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    // Maximum movement range within a comfortable area
+    const maxX = Math.min(window.innerWidth - btnRect.width - 20, 280);
+    const maxY = Math.min(window.innerHeight - btnRect.height - 20, 200);
+
+    const randomX = (Math.random() * 2 - 1) * maxX;
+    const randomY = (Math.random() * 2 - 1) * maxY;
+
+    noBtn.style.transition = 'transform 0.25s ease-out';
+    noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+    // Reset after animation to allow continuous movement
+    setTimeout(() => {
+      noBtn.style.transition = 'transform 0.15s ease';
+    }, 250);
+
+    noBtnMoved = true;
+  }
+
+  // Desktop: move on mouseenter (hover)
+  noBtn.addEventListener('mouseenter', moveNoButton);
+
+  // Mobile: move on touchstart (before tap registers)
+  noBtn.addEventListener('touchstart', function (e) {
+    e.preventDefault();
+    moveNoButton();
+  }, { passive: false });
+
+  // Also move on click attempt (in case they catch it)
+  noBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  /* ============================================
+     3. "YES" BUTTON — SHOW REWARD + CONFETTI
+     ============================================ */
+  const yesBtn = document.getElementById('yesBtn');
+  const questionSection = document.getElementById('questionSection');
+  const rewardSection = document.getElementById('rewardSection');
+  const messageBox = document.getElementById('messageBox');
+
+  yesBtn.addEventListener('click', function () {
+    // Hide question, show reward
+    questionSection.style.display = 'none';
+    rewardSection.classList.add('show');
+
+    // Optional: slightly fade the message box
+    messageBox.style.opacity = '0.85';
+
+    // Launch confetti
+    launchConfetti();
+
+    // Extra heart burst
+    heartBurst();
+  });
+
+  /* ============================================
+     4. CONFETTI ENGINE (Pure JS — no library)
+     ============================================ */
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  let confettiParticles = [];
+  let animationId = null;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const confettiColors = [
+    '#ff8fb1', '#d1477a', '#f7a1c4', '#c084fc',
+    '#fbbf24', '#f472b6', '#a78bfa', '#fda4af',
+    '#fde68a', '#f9a8d4', '#e879f9', '#fb7185'
+  ];
+
+  const confettiShapes = ['circle', 'rect', 'heart'];
+
+  function createConfettiPiece() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height - 20,
+      size: Math.random() * 10 + 6,
+      color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+      speedY: Math.random() * 3 + 2,
+      speedX: (Math.random() - 0.5) * 2.5,
+      rotation: Math.random() * 360,
+      rotationSpeed: (Math.random() - 0.5) * 8,
+      shape: confettiShapes[Math.floor(Math.random() * confettiShapes.length)],
+      opacity: 1,
+      sway: Math.random() * 2 + 1,
+      swayPhase: Math.random() * Math.PI * 2
+    };
+  }
+
+  function drawHeart(ctx, x, y, size, color, rotation, opacity) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate((rotation * Math.PI) / 180);
+    ctx.globalAlpha = opacity;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    const s = size / 2;
+    ctx.moveTo(0, s * 0.3);
+    ctx.bezierCurveTo(0, -s * 0.3, -s, -s * 0.3, -s, s * 0.3);
+    ctx.bezierCurveTo(-s, s * 0.9, 0, s * 1.3, 0, s * 1.6);
+    ctx.bezierCurveTo(0, s * 1.3, s, s * 0.9, s, s * 0.3);
+    ctx.bezierCurveTo(s, -s * 0.3, 0, -s * 0.3, 0, s * 0.3);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confettiParticles.forEach((p, index) => {
+      // Update position
+      p.y += p.speedY;
+      p.swayPhase += 0.05;
+      p.x += p.speedX + Math.sin(p.swayPhase) * p.sway * 0.5;
+      p.rotation += p.rotationSpeed;
+
+      // Fade out near the bottom
+      if (p.y > canvas.height * 0.7) {
+        p.opacity -= 0.008;
+      }
+
+      // Remove if off-screen or faded
+      if (p.y > canvas.height + 50 || p.opacity <= 0) {
+        confettiParticles.splice(index, 1);
+        return;
+      }
+
+      // Draw based on shape
+      if (p.shape === 'circle') {
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      } else if (p.shape === 'rect') {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        ctx.restore();
+      } else if (p.shape === 'heart') {
+        drawHeart(ctx, p.x, p.y, p.size, p.color, p.rotation, p.opacity);
+      }
+    });
+
+    if (confettiParticles.length > 0) {
+      animationId = requestAnimationFrame(drawParticles);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animationId = null;
+    }
+  }
+
+  function launchConfetti() {
+    // Add a burst of particles
+    const burstCount = 180;
+    for (let i = 0; i < burstCount; i++) {
+      const piece = createConfettiPiece();
+      // Spread initial burst across top area
+      piece.y = Math.random() * -200;
+      confettiParticles.push(piece);
+    }
+
+    // Start animation loop if not running
+    if (!animationId) {
+      animationId = requestAnimationFrame(drawParticles);
+    }
+
+    // Continue adding a few more waves for a richer effect
+    let waves = 0;
+    const waveInterval = setInterval(() => {
+      waves++;
+      if (waves > 4) {
+        clearInterval(waveInterval);
+        return;
+      }
+      for (let i = 0; i < 60; i++) {
+        const piece = createConfettiPiece();
+        piece.y = Math.random() * -100;
+        confettiParticles.push(piece);
+      }
+      if (!animationId) {
+        animationId = requestAnimationFrame(drawParticles);
+      }
+    }, 400);
+  }
+
+  /* ============================================
+     5. HEART BURST (extra floating hearts on Yes)
+     ============================================ */
+  function heartBurst() {
+    const container = document.getElementById('floatingContainer');
+    const burstEmojis = ['❤️', '💖', '💕', '💗', '🥰', '💘', '🌸', '✨'];
+
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement('span');
+      el.className = 'floating-item';
+      el.textContent = burstEmojis[Math.floor(Math.random() * burstEmojis.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.fontSize = (Math.random() * 20 + 18) + 'px';
+      el.style.animationDuration = (Math.random() * 4 + 4) + 's';
+      el.style.animationDelay = (Math.random() * 0.8) + 's';
+      el.style.position = 'fixed';
+      container.appendChild(el);
+
+      // Clean up after animation
+      setTimeout(() => {
+        el.remove();
+      }, 9000);
+    }
+  }
+
+  /* ============================================
+     6. Optional: Prevent "No" from being focused via keyboard
+     ============================================ */
+  noBtn.addEventListener('focus', function () {
+    noBtn.blur();
+  });
+
+</script>
+</body>
+</html>
